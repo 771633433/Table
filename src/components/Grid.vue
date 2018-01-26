@@ -120,6 +120,7 @@ import $ from 'jquery';
                 modifyidNumber:'',
                 modifyindex:'',
                 userid:'',
+                chosenList:[],
                 data6: [],
                 columns7: [
                     {
@@ -278,13 +279,20 @@ import $ from 'jquery';
                         }
                     ),
                     success:(res)=>{
-                        //console.log(res);
-                        this.data6.unshift({
-                            cstate:'',
-                            id:"",
-                            name:this.personName,
-                            userName:this.idNumber
-                        });
+                        //再次发送ajax请求,得到所有数据,渲染到页面
+                        $.ajax({
+                            type: "GET",
+                            contentType: "application/json;charset=utf-8",
+                            url: 'http://172.20.22.43:8183/static-resource/userinfo?size=1000' ,
+                            dataType: "json",
+                            success:(res)=>{
+                                //console.log(res.content.list);
+                                this.data6=res.content.list;
+                            },
+                            error:(XMLHttpRequest, textStatus, errorThrown)=>{
+                                alert("服务调用失败，请检查输入字段或联系管理员");
+                            }
+                         });
                     },
                     error:(XMLHttpRequest, textStatus, errorThrown)=>{
                         alert("服务调用失败，请检查输入字段或联系管理员");
@@ -311,12 +319,15 @@ import $ from 'jquery';
 
             // 点击选择时候触发的事件
             showMe(name){
-                 console.log(name);
+                 //console.log(name);
+                 this.chosenList=name;
             },
 
             // 批量删除用户选中的条目
             batchDelete(){
-
+                console.log(this.chosenList);
+                // 打印的是一个数组,数组内元素是用户实际上选择的条目,
+                // 需要循环遍历出所有的id,通过id携带参数调用post请求从数据库中删除
             }
         }
     }
