@@ -3,7 +3,18 @@
         <div class="bar">
             <!--  左侧的search查询结果图标  -->
             <div class="searchIcon" @click="searchResult">
-                <Icon type="search" title="查询" color='#284e8d' size='21'></Icon>
+                <p class="p_search">查询</p>
+                <p class="p_icon">
+                    <Icon type="search" color='#284e8d' size='21' />
+                </p>               
+            </div>
+
+            <!--  批量删除  -->
+            <div class="batchDeletion" @click="batchDelete">
+                <p class="p_delete">删除</p>
+                <p class="p_icon_delete">
+                    <Icon type="android-delete" color='#284e8d' size='21' />
+                </p>
             </div>
             <!--  右侧的3个按钮  -->
                 <div class="menau">
@@ -66,8 +77,8 @@
             <p>性别: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <select v-model='modifySex' style="width: 150px;">
                     <option value="" selected="true" disabled="true">请选择</option>
-                        <option>男</option>
-                        <option>女</option>
+                    <option>男</option>
+                    <option>女</option>
                 </select>
             </p>
             <br/>
@@ -267,7 +278,7 @@ import $ from 'jquery';
                         }
                     ),
                     success:(res)=>{
-                        console.log(res);
+                        //console.log(res);
                         this.data6.unshift({
                             cstate:'',
                             id:"",
@@ -301,6 +312,11 @@ import $ from 'jquery';
             // 点击选择时候触发的事件
             showMe(name){
                  console.log(name);
+            },
+
+            // 批量删除用户选中的条目
+            batchDelete(){
+
             }
         }
     }
@@ -324,7 +340,7 @@ import $ from 'jquery';
 }
 
 .searchIcon{
-    width: 2%;
+    width: 6%;
     height: 30px;
     line-height: 44px;
     margin-left: 8px;
@@ -359,5 +375,56 @@ import $ from 'jquery';
     float: left;
     margin-left: 22px;
     cursor: pointer;
+}
+
+.p_icon{
+    width: 22px;
+    height: 30px;
+    line-height: 45px;
+    /*border: 1px solid gray;*/
+    float: left;
+}
+
+.p_search{
+    width: 28px;
+    height: 30px;
+    font-size: 13px;
+    line-height: 35px;
+    color: #284e8d;
+    font-weight: 900;
+    /*border: 1px solid gray;*/
+    float: left;
+}
+
+.batchDeletion{
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    /*border: 1px solid gray;*/
+    float: left;
+}
+
+
+.p_delete{
+    width: 28px;
+    height: 30px;
+    font-size: 13px;
+    line-height: 35px;
+    color: #284e8d;
+    font-weight: 900;
+    /*border: 1px solid gray;*/
+    float: left;
+}
+
+/*  删除那个垃圾桶一样的图标  */
+.p_icon_delete{
+    width: 18px;
+    height: 30px;
+    font-size: 13px;
+    line-height: 38px;
+    color: #284e8d;
+    font-weight: 900;
+    /*border: 1px solid gray;*/
+    float: left;
 }
 </style>
